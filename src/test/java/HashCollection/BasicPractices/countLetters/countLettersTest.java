@@ -1,6 +1,6 @@
-package Hash.BasicPractices.countLetters;
+package HashCollection.BasicPractices.countLetters;
 
-import Exams.hash.BasicPractices;
+import Exams.HashCollection.BasicPractices;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

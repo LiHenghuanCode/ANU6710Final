@@ -1,4 +1,4 @@
-package Exams.hash;
+package Exams.HashCollection;
 
 import java.util.List;
 

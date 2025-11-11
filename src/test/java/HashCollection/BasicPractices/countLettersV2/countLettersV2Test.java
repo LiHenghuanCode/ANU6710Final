@@ -1,7 +1,7 @@
-package Hash.BasicPractices.countLettersV2;
+package HashCollection.BasicPractices.countLettersV2;
 
 
-import Exams.hash.BasicPractices;
+import Exams.HashCollection.BasicPractices;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import java.util.*;
