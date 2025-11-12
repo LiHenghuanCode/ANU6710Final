@@ -52,7 +52,7 @@ public class Address {
     }
 
     // DO NOT DELETE OR CALL THIS METHOD
-    int passThroughHash() {
+    public int passThroughHash() {
         return super.hashCode();
     }
 }
