@@ -499,10 +499,13 @@ public class EventHandlerAndContainerTests {
         var event2 = new Event("MockEvent2", "MockData2");
         eventsContainer.addEvent(event1);
         eventsContainer.addEvent(event2);
+
         eventsContainer.addEvent(event1);
         eventsContainer.addEvent(event2);
+
         var handledEvents = eventsContainer.handleEvents(eventHandler);
         assertEquals(2, handledEvents.size());
+
         for (var e : handledEvents) {
             assertEquals(event1, e);
         }

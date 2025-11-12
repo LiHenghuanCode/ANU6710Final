@@ -1,6 +1,6 @@
 package Exams.Design.EventSystem;
 
-import java.util.List;
+import java.util.*;
 
 /**
  * Represents an ordered container of Events stored for future handling.
@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class EventsContainer {
     //FIXME add members
-
+    Deque<Event> deque = new LinkedList<>();
     /**
      * Adds a new Event at the tail of the container.
      *
@@ -22,6 +22,7 @@ public class EventsContainer {
      */
     public void addEvent(Event event) {
         // FIXME complete method
+        deque.addLast(event);
     }
 
     /**
@@ -32,7 +33,9 @@ public class EventsContainer {
      *               if the container is empty
      */
     public Event extractEvent() {
-        return null; // FIXME complete method
+         // FIXME complete method
+        if(deque.isEmpty()) return null;
+        return deque.removeFirst();
     }
 
     /**
@@ -51,7 +54,19 @@ public class EventsContainer {
      *         list.
      */
     public List<Event> handleEvents(EventHandler eventHandler) {
-        return null; // FIXME complete method
+         // FIXME complete method
+        List<Event> result =new ArrayList<>();
+        int size = deque.size();
+        for(int i=0;i<size;i++){
+            Event e = extractEvent();
+            if(eventHandler.handleEvent(e)){
+                result.add(e);
+            }else{
+                deque.addLast(e);
+            }
+        }
+
+        return result;
     }
 }
 

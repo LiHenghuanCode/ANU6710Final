@@ -1,5 +1,10 @@
 package Exams.Design.EventSystem;
 
+
+import java.util.HashMap;
+import java.util.HashSet;
+
+import java.util.Set;
 import java.util.function.Consumer;
 
 /**
@@ -14,7 +19,7 @@ import java.util.function.Consumer;
  */
 public class EventHandler {
     //FIXME add members
-
+    HashMap<String,Consumer> hm =new HashMap<>();
     /**
      * Associates an event kind to an event handler function. If the
      * event kind is already associated with an event handler function,
@@ -27,6 +32,12 @@ public class EventHandler {
      */
     public void registerEventHandlerFunction(String eventKind, Consumer<Event> handlerFunction) {
         // FIXME complete method
+        if(hm.containsKey(eventKind)){
+            hm.replace(eventKind,handlerFunction);
+        }else{
+            hm.put(eventKind,handlerFunction);
+        }
+
     }
 
     /**
@@ -42,7 +53,8 @@ public class EventHandler {
      *         associated to the event kind.
      */
     public Consumer<Event> unregisterEventHandlerFunction(String eventKind) {
-        return null;  // FIXME complete method
+         // FIXME complete method
+        return hm.remove(eventKind);
     }
 
     /**
@@ -57,7 +69,13 @@ public class EventHandler {
      *         false otherwise
      */
     public boolean handleEvent(Event event) {
-        return false; // FIXME complete method
+         // FIXME complete method
+            if(hm.containsKey(event.kind())){
+                Consumer<Event> c = hm.get(event.kind());
+                c.accept(event);
+                return true;
+            }
+            return false;
     }
 }
 
