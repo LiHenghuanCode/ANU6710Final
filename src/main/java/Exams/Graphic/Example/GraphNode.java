@@ -1,6 +1,11 @@
 package Exams.Graphic.Example;
 import java.util.*;
+/*
 
+
+From Nodes + ArrayList of references to neighbours
+to Adjacency Matrix(Map) with vertex identifiers
+ */
 public class GraphNode<T> {
     T value;
     List<GraphNode<T>> neighbours;
@@ -49,6 +54,49 @@ public class GraphNode<T> {
         System.out.println();
         return visitedFrom;
     }
+
+    public static <T> Map<T, List<T>> toAdjacencyList(GraphNode<T> start) {
+        Map<T, List<T>> graph = new HashMap<>();
+        Queue<GraphNode<T>> queue = new LinkedList<>();
+        Set<GraphNode<T>> visited = new HashSet<>();
+
+        queue.add(start);
+        visited.add(start);
+
+        while (!queue.isEmpty()) {
+            GraphNode<T> node = queue.poll();
+            graph.put(node.value, new ArrayList<>());
+
+            for (GraphNode<T> nbr : node.neighbours) {
+                graph.get(node.value).add(nbr.value);
+                if (!visited.contains(nbr)) {
+                    queue.add(nbr);
+                    visited.add(nbr);
+                }
+            }
+        }
+
+        return graph;
+    }
+    public static <T> Map<T, GraphNode<T>> fromAdjacencyList(Map<T,List<T>> adjacency) {
+        // Step 1: create nodes
+        Map<T,GraphNode<T>> nodes = new HashMap<>();
+        for (T key : adjacency.keySet()) {
+            nodes.put(key, new GraphNode<>(key));
+        }
+
+        // Step 2: connect edges
+        for (T key : adjacency.keySet()) {
+            for (T nbr : adjacency.get(key)) {
+                nodes.get(key).addNeighbour(nodes.get(nbr));
+            }
+        }
+
+        return nodes; // return map of nodes
+    }
+
+
+
 
     public static <T> List<GraphNode<T>> aMinimalPath(
             Map<GraphNode<T>,GraphNode<T>> visitedFrom,
